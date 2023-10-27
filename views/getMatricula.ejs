@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Matrículas</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Registro de Matrículas</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/html/estudiantes">Estudiantes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/asignaturas">Asignaturas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/grupos">Grupos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/aulas">Aulas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/horarios">Horarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/matriculas">Matrículas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/profesores">Profesores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/programas">Programas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/panel">Panel</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Fin del Navbar -->
+
+    <h1 class="mt-4">Registro de Matrículas</h1>
+
+    <!-- Formulario para crear matrículas -->
+    <form class="mt-4" method="POST" action="/api/v1/matriculas/matriculas">
+      <div class="form-group">
+        <label for="id_estudiante">Estudiante:</label>
+        <select class="form-control" id="id_estudiante" name="id_estudiante" required>
+          <!-- Itera a través de los estudiantes y crea opciones -->
+          <% estudiantes.forEach((estudiante) => { %>
+            <option value="<%= estudiante.id_estudiante %>"><%= estudiante.nom_estudiante %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="id_asignatura">Asignatura:</label>
+        <select class="form-control" id="id_asignatura" name="id_asignatura" required>
+          <!-- Itera a través de las asignaturas y crea opciones -->
+          <% asignaturas.forEach((asignatura) => { %>
+            <option value="<%= asignatura.id_asignatura %>"><%= asignatura.nom_asignatura %></option>
+          <% }); %>
+        </select>
+      </div>
+      <!-- Agregar más campos aquí -->
+      <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+
+    <!-- Lista de matrículas en una tabla -->
+    <table class="table mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th>Estudiante</th>
+          <th>Asignatura</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Itera a través de las matrículas y muestra los datos en la tabla -->
+        <% matriculas.forEach((matricula) => { %>
+          <tr>
+            <td><%= matricula.id_estudiante %></td>
+            <td><%= matricula.id_asignatura %></td>
+            <td>
+              <form method="GET" action="/html/edit/matricula/<%= matricula.id_matricula %>">
+                <button type="submit" class="btn btn-primary">Editar</button>
+              </form>
+              <form method="POST" action="/api/v1/matriculas/matriculas/<%= matricula.id_matricula %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger">Borrar</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

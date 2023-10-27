@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Estudiantes</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/html/estudiantes">Estudiantes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/asignaturas">Asignaturas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/grupos">Grupos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/aulas">Aulas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/horarios">Horarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/matriculas">Matrículas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/profesores">Profesores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/programas">Programas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/panel">Panel</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <h1 class="mt-4">Registro de Estudiantes</h1>
+
+    <!-- Formulario para crear estudiantes -->
+    <form class="mt-4" method="POST" action="/api/v1/students/estudiantes">
+      <div class="form-group">
+        <label for="nom_estudiante">Nombre:</label>
+        <input type="text" class="form-control" id="nom_estudiante" name="nom_estudiante" required>
+      </div>
+      <div class="form-group">
+        <label for="ape_estudiante">Apellido:</label>
+        <input type="text" class="form-control" id="ape_estudiante" name="ape_estudiante" required>
+      </div>
+      <div class="form-group">
+        <label for="estrato">Estrato:</label>
+        <input type="number" class="form-control" id="estrato" name="estrato" required>
+      </div>
+      <div class="form-group">
+        <label for="genero_estudiante">Género:</label>
+        <input type="text" class="form-control" id="genero_estudiante" name="genero_estudiante" required>
+      </div>
+      <div class="form-group">
+        <label for="ciudad_nac">Ciudad de Nacimiento:</label>
+        <input type="text" class="form-control" id="ciudad_nac" name="ciudad_nac" required>
+      </div>
+      <div class="form-group">
+        <label for="fecha_nac">Fecha de Nacimiento:</label>
+        <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" required>
+      </div>
+      <div class="form-group">
+        <label for="direccion">Dirección:</label>
+        <input type="text" class="form-control" id="direccion" name="direccion" required>
+      </div>
+      <!-- Agregar más campos aquí -->
+      <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+
+    <!-- Lista de estudiantes en una tabla -->
+    <table class="table mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Estrato</th>
+          <th>Género</th>
+          <th>Ciudad de Nacimiento</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Dirección</th>
+          <!-- Agregar más encabezados de columna aquí -->
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% estudiantes.forEach((estudiante) => { %>
+          <tr>
+            <td><%= estudiante.nom_estudiante %></td>
+            <td><%= estudiante.ape_estudiante %></td>
+            <td><%= estudiante.estrato %></td>
+            <td><%= estudiante.genero_estudiante %></td>
+            <td><%= estudiante.ciudad_nac %></td>
+            <td><%= estudiante.fecha_nac %></td>
+            <td><%= estudiante.direccion %></td>
+            <!-- Agregar más datos de columna aquí -->
+            <td>
+              <form method="GET" action="/html/edit/estudiante/<%= estudiante.id_estudiante %>">
+                <button type="submit" class="btn btn-primary">Editar</button>
+              </form>
+              <form method="POST" action="/api/v1/students/estudiantes/<%= estudiante.id_estudiante %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger">Borrar</button>
+              </form>           
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

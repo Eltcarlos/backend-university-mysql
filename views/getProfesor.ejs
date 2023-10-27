@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Profesores</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/html/estudiantes">Estudiantes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/asignaturas">Asignaturas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/grupos">Grupos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/aulas">Aulas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/horarios">Horarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/matriculas">Matrículas</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/html/profesores">Profesores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/programas">Programas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/panel">Panel</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <h1 class="mt-4">Registro de Profesores</h1>
+
+    <!-- Formulario para crear profesores -->
+    <form class="mt-4" method="POST" action="/api/v1/profesores/profesores">
+      <div class="form-group">
+        <label for="nom_profesor">Nombre:</label>
+        <input type="text" class="form-control" id="nom_profesor" name="nom_profesor" required>
+      </div>
+      <div class="form-group">
+        <label for="ape_profesor">Apellido:</label>
+        <input type="text" class="form-control" id="ape_profesor" name="ape_profesor" required>
+      </div>
+      <div class="form-group">
+        <label for="titulo">Título:</label>
+        <input type="text" class="form-control" id="titulo" name="titulo" required>
+      </div>
+      <div class="form-group">
+        <label for="genero_profesor">Género:</label>
+        <input type="text" class="form-control" id="genero_profesor" name="genero_profesor" required>
+      </div>
+      <div class="form-group">
+        <label for="area">Área:</label>
+        <input type="text" class="form-control" id="area" name="area" required>
+      </div>
+      <!-- Agregar más campos aquí -->
+      <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+
+    <!-- Lista de profesores en una tabla -->
+    <table class="table mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Título</th>
+          <th>Género</th>
+          <th>Área</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% profesores.forEach((profesor) => { %>
+          <tr>
+            <td><%= profesor.nom_profesor %></td>
+            <td><%= profesor.ape_profesor %></td>
+            <td><%= profesor.titulo %></td>
+            <td><%= profesor.genero_profesor %></td>
+            <td><%= profesor.area %></td>
+            <td>
+              <form method="GET" action="/html/edit/profesor/<%= profesor.id_profesor %>">
+                <button type="submit" class="btn btn-primary">Editar</button>
+              </form>
+              <form method="POST" action="/api/v1/profesores/profesores/<%= profesor.id_profesor %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger">Borrar</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

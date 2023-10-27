@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editar Grupo</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Editar Grupo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class "collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/html/grupos">Grupos</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Fin del Navbar -->
+
+    <h1 class="mt-4">Editar Grupo</h1>
+
+    <!-- Formulario para editar grupos -->
+    <form class="mt-4" method="POST" action="/api/v1/grupos/grupos/<%= grupo.id_grupo %>?_method=PUT">
+      <div class="form-group">
+        <label for="grupo">Nombre del Grupo:</label>
+        <input type="text" class="form-control" id="grupo" name="grupo" value="<%= grupo.grupo %>" required>
+      </div>
+      <div class="form-group">
+        <label for="num_estudiantes">Número de Estudiantes:</label>
+        <input type="number" class="form-control" id="num_estudiantes" name="num_estudiantes" value="<%= grupo.num_estudiantes %>" required>
+      </div>
+      <div class="form-group">
+        <label for="id_asignatura">Asignatura:</label>
+        <select class="form-control" id="id_asignatura" name="id_asignatura">
+          <% asignaturas.forEach((asignatura) => { %>
+            <option value="<%= asignatura.id_asignatura %>" <% if (asignatura.id_asignatura === grupo.id_asignatura) { %> selected <% } %>><%= asignatura.nom_asignatura %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="id_profesor">Profesor:</label>
+        <select class="form-control" id="id_profesor" name="id_profesor">
+          <% profesores.forEach((profesor) => { %>
+            <option value="<%= profesor.id_profesor %>" <% if (profesor.id_profesor === grupo.id_profesor) { %> selected <% } %>><%= profesor.nombre_profesor %></option>
+          <% }); %>
+        </select>
+      </div>
+      <!-- Agregar más campos aquí -->
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
